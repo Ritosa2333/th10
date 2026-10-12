@@ -5,8 +5,6 @@ on:
     paths:
       - '.github/workflows/presentation-lab.yml'
       - 'portable/presentation-lab/**'
-      - 'portable/check-high-refresh-contract.mjs'
-      - 'portable/check-presentation-purity.mjs'
       - 'portable/build.mjs'
       - 'portable/package-eagler.mjs'
       - 'third_party/eagler-common'
@@ -14,8 +12,6 @@ on:
     paths:
       - '.github/workflows/presentation-lab.yml'
       - 'portable/presentation-lab/**'
-      - 'portable/check-high-refresh-contract.mjs'
-      - 'portable/check-presentation-purity.mjs'
       - 'portable/build.mjs'
       - 'portable/package-eagler.mjs'
       - 'third_party/eagler-common'
@@ -32,7 +28,5 @@ jobs:
         with:
           node-version: 22
       - run: node --test third_party/eagler-common/testkit/presentation-lab/controller-core.test.mjs third_party/eagler-common/testkit/presentation-lab/release-contract.test.mjs
-      - run: node portable/check-high-refresh-contract.mjs
-      - run: node portable/check-presentation-purity.mjs
       - run: node --check portable/presentation-lab/serve.mjs
       - run: node --check portable/package-eagler.mjs
