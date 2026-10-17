@@ -349,7 +349,11 @@ u32 mp_fixture_prepare(browser::Application* app,u32 kind){
        runtime.ConfirmedThroughAllRemotes()==Netplay::INVALID_FRAME)return 0;
     if(kind<1||kind>13)return 0;
     auto& world=*app->world;
-    if(world.player_count!=2||!world.pilots[0].player||!world.pilots[1].player)return 0;
+    if(world.player_count<2||world.player_count>Netplay::MAX_PLAYERS)return 0;
+    for(u32 seat=0;seat<world.player_count;++seat)if(!world.pilots[seat].player)return 0;
+    // Stage completion uses the native cooperative progression for every
+    // active seat. The other setup fixtures still describe two-seat poses.
+    if(kind!=6&&world.player_count!=2)return 0;
     if(kind==6&&(world.state.game.stage<1||world.state.game.stage>=6||!world.hud))return 0;
     // Retired confirmed history must not restore across a fixture setup.
     if(world.rollback)world.rollback->Clear();
